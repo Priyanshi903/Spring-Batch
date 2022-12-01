@@ -37,21 +37,21 @@ public class TaskletStepJob {
 
 //	@Bean Annotation is applied on a method to specify that it returns a bean to be managed by Spring context. Spring Bean annotation is usually declared in Configuration classes methods. In this case, bean methods may reference other @Bean methods in the same class by calling them directly.
 	@Bean
-	public Job firstJob(JobBuilderFactory jobBuilderFactory,StepBuilderFactory stepBuilderFactory,Tasklet tasklet) {
+	public Job firstJob(JobBuilderFactory jobBuilderFactory,Step step) {
 		return jobBuilderFactory.get("First Job")
-				.start(firstStep(stepBuilderFactory,tasklet))
+				.start(step)
 				.build();
 	}
 
 	@Bean
-	private Step firstStep(StepBuilderFactory stepBuilderFactory,Tasklet tasklet) {
+	public Step firstStep(StepBuilderFactory stepBuilderFactory,Tasklet tasklet) {
 		return stepBuilderFactory.get("First Step")
 				.tasklet(tasklet)
 				.build();
 	}
 
 	@Bean
-	private Tasklet firstTask() {
+	public Tasklet firstTask() {
 		return new Tasklet() {
 
 			@Override
